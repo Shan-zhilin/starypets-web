@@ -1,0 +1,8 @@
+**/dist/**
+**/node_modules/**
+package.json
+*.d.ts
+.eslintrc.js
+tsconfig.json
+public
+scripts
