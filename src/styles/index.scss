@@ -1,10 +1,10 @@
-@import 'reset';
-@import 'global';
-@import 'tailwind';
+@import "reset";
+@import "global";
+@import "tailwind";
 
 html,
 body {
-  font-family: Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
+  font-family: Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
 }
 
 #root,
@@ -25,7 +25,7 @@ td {
   vertical-align: middle;
 }
 
-/*单行溢出*/
+/* 单行溢出 */
 .one-text-ellipsis {
   overflow: hidden;
   white-space: nowrap;
@@ -36,7 +36,7 @@ td {
 .two-text-ellipsis {
   overflow: hidden;
   text-overflow: ellipsis;
-  display: -webkit-box;
+  display: box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
 }
