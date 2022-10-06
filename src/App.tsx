@@ -6,13 +6,17 @@
  */
 
 import React, { Suspense } from 'react';
-import { Button } from 'antd';
+import { HashRouter } from 'react-router-dom';
+
+import routes from '@/routes/index';
+import RenderRouter from '@/routes/renderRouter';
 
 const App = () => {
   return (
-    <Suspense fallback={<span>loading</span>}>
-      <div className="text-[#dd76dd]">1111</div>
-      <Button type="primary">ceshi</Button>
+    <Suspense>
+      <HashRouter>
+        <RenderRouter routes={routes} />
+      </HashRouter>
     </Suspense>
   );
 };

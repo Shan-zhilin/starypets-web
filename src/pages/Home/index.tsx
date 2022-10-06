@@ -6,6 +6,6 @@
  */
 import React from 'react'
 
-const Home: React.FC = () => <div> Home </div>;
+const Home: React.FC = () => <div className='text[#ff0000]'> Home </div>;
 
 export default Home;

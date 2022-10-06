@@ -16,14 +16,14 @@ module.exports = {
     sourceType: 'module',
   },
   rules: {
-    'simple-import-sort/imports': 'error',
+    'simple-import-sort/imports': 'warn',
   },
   overrides: [
     {
       files: ['*.js', '*.jsx', '*.ts', '*.tsx'],
       rules: {
         'simple-import-sort/imports': [
-          'error',
+          'warn',
           {
             groups: [
               // react等包放在首位.

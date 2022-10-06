@@ -24,19 +24,3 @@ img {
 td {
   vertical-align: middle;
 }
-
-/* 单行溢出 */
-.one-text-ellipsis {
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  word-break: break-all;
-}
-
-.two-text-ellipsis {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-}
