@@ -22,8 +22,9 @@ const MenuLayout: React.FC = () => {
   const location = useLocation();
   const { pathname } = location;
   return (
-    <div style={{ minHeight: 'calc(100vh - 70px)' }}>
+    <div className='relative' style={{height: 'calc(100vh - 90px)'}}>
       <Menu defaultSelectedKeys={[pathname]} style={{ width: 256 }} mode="inline" theme="light" items={items} onClick={e => navigate(e.key)}/>
+      <div className='w-full h-20 bg-white absolute -bottom-20' />
     </div>
   );
 };

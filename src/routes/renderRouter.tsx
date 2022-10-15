@@ -1,6 +1,11 @@
-import React, { Fragment, Suspense } from 'react';
+/*
+ * @Author: shanzhilin
+ * @Date: 2022-10-06 18:51:54
+ * @LastEditors: shanzhilin
+ * @LastEditTime: 2022-10-15 15:39:17
+ */
+import React, { Fragment } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import { Spin } from 'antd';
 
 import { RouteItem } from './index';
 

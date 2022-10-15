@@ -17,6 +17,7 @@ module.exports = {
         28: '28px',
         30: '30px',
         50: '50px',
+        'save': '1200px'
       },
       borderRadius: {
         none: '0',
