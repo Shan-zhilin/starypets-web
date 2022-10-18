@@ -2,12 +2,13 @@
  * @Author: shanzhilin
  * @Date: 2022-10-17 22:40:08
  * @LastEditors: shanzhilin
- * @LastEditTime: 2022-10-17 23:02:05
- * 
+ * @LastEditTime: 2022-10-18 22:52:39
+ *
  */
 
-import storage from './storage';
 import { UserInfo } from '@/store/login';
+
+import storage from './storage';
 
 // user 相关
 const USER_KEY: string = '_STRAPTES_USER_INFO';

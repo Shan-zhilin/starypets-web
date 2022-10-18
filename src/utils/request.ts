@@ -2,21 +2,20 @@
  * @Author: shanzhilin
  * @Date: 2022-10-17 22:21:03
  * @LastEditors: shanzhilin
- * @LastEditTime: 2022-10-17 22:23:04
+ * @LastEditTime: 2022-10-18 21:59:30
  */
 import axios from 'axios';
 
 const HOST_URL = location.protocol + '//' + location.host + '/api';
 
 // axios 请求拦截器处理请求数据
-axios.interceptors.request.use((config: any) => {
-  const token = window.localStorage.getItem('token');
-  config.headers.common['Authorization'] = 'Bearer ' + token; // 留意这里的 Authorization
-  config.headers.common['Content-Type'] =
-    'application/json;multipart/form-data;text/plain; charset=utf-8';
-  return config;
-});
-
+// axios.interceptors.request.use((config: any) => {
+//   const token = window.localStorage.getItem('token');
+//   config.headers.common['Authorization'] = 'Bearer ' + token; // 留意这里的 Authorization
+//   config.headers.common['Content-Type'] =
+//     'application/json;multipart/form-data;text/plain; charset=utf-8';
+//   return config;
+// });
 
 const request = (
   url: string | string[],
