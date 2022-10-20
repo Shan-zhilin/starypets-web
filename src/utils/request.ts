@@ -2,11 +2,21 @@
  * @Author: shanzhilin
  * @Date: 2022-10-17 22:21:03
  * @LastEditors: shanzhilin
- * @LastEditTime: 2022-10-18 21:59:30
+ * @LastEditTime: 2022-10-20 23:22:40
  */
 import axios from 'axios';
 
 const HOST_URL = location.protocol + '//' + location.host + '/api';
+
+interface responseProps {
+  success?: boolean;
+  code?: number;
+  msg?: string;
+  data?: {
+    [key: string]: any;
+  };
+  [key: string]: any;
+}
 
 // axios 请求拦截器处理请求数据
 // axios.interceptors.request.use((config: any) => {
@@ -25,7 +35,7 @@ const request = (
     response = 'json', //文件传输需要替换格式
   }: { method: string; data: any; response?: any }
 ) => {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve: (value: responseProps) => void, reject) => {
     url = HOST_URL + url;
     if (url.indexOf('?') < 0) {
       url += '?_dt=' + Math.random();

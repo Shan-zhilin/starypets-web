@@ -1,3 +1,9 @@
+/*
+ * @Author: shanzhilin
+ * @Date: 2022-10-15 17:23:10
+ * @LastEditors: shanzhilin
+ * @LastEditTime: 2022-10-20 22:37:03
+ */
 import React, { useState } from 'react';
 import { Button, Input, Modal } from 'antd';
 
@@ -18,6 +24,7 @@ const LoginModal: React.FC<LoginProps> = ({ visible, close }) => {
     login({
       phone,
       username,
+      type:1
     });
   };
 
@@ -28,7 +35,7 @@ const LoginModal: React.FC<LoginProps> = ({ visible, close }) => {
         onBlur={e => setUserName(e.target.value)}
       />
       <Input
-        placeholder="请输入用户名"
+        placeholder="请输入手机号"
         onBlur={e => setPhone(e.target.value)}
       />
     </Modal>
