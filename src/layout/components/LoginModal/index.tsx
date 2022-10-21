@@ -2,11 +2,12 @@
  * @Author: shanzhilin
  * @Date: 2022-10-15 17:23:10
  * @LastEditors: shanzhilin
- * @LastEditTime: 2022-10-20 22:37:03
+ * @LastEditTime: 2022-10-21 23:00:28
  */
 import React, { useState } from 'react';
-import { Button, Input, Modal } from 'antd';
+import { Button, Input, message, Modal } from 'antd';
 
+import { userLoginApi } from '@/api';
 import { useLogin } from '@/store/login';
 
 interface LoginProps {
@@ -20,12 +21,19 @@ const LoginModal: React.FC<LoginProps> = ({ visible, close }) => {
   const [login] = useLogin(state => [state.login]);
 
   // 登录
-  const loginSubmit = () => {
-    login({
+  const loginSubmit = async () => {
+    const userInfo = await userLoginApi({
       phone,
       username,
-      type:1
+      type: 0,
     });
+    const { data, success, msg } = userInfo;
+    if (success) {
+      login(data);
+      close()
+    } else {
+      message.error(msg);
+    }
   };
 
   return (

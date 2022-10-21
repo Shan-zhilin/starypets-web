@@ -1,18 +1,22 @@
+/*
+ * @Author: shanzhilin
+ * @Date: 2022-10-15 17:24:14
+ * @LastEditors: shanzhilin
+ * @LastEditTime: 2022-10-21 22:49:26
+ */
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import type { MenuProps } from 'antd';
 import { Menu } from 'antd';
 
+import { useLogin } from '@/store/login';
+
 import './index.scss';
 
-const tabs = [
+const _tabs = [
   {
     label: '首页',
     key: '/home',
-  },
-  {
-    label: '管理后台',
-    key: '/back',
   },
 ];
 
@@ -20,6 +24,8 @@ const TopTab: React.FC = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const [current, setCurrent] = useState('/home');
+  const [tabs, setTabs] = useState(_tabs);
+  const [isLogin, isAdmin] = useLogin(state => [state.isLogin, state.isAdmin]);
 
   const onClick: MenuProps['onClick'] = e => {
     setCurrent(e.key);
@@ -31,8 +37,19 @@ const TopTab: React.FC = () => {
     setCurrent(path);
   }, [pathname]);
 
+  useEffect(() => {
+    if (isAdmin) {
+      const _tabs = tabs.concat({
+        label: '管理后台',
+        key: '/back',
+      });
+      setTabs(_tabs);
+    }
+  }, [isLogin]);
+
   return (
     <Menu
+      className="flex-1"
       mode="horizontal"
       selectedKeys={[current]}
       items={tabs}

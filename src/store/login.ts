@@ -2,17 +2,11 @@
  * @Author: shanzhilin
  * @Date: 2022-10-17 22:49:15
  * @LastEditors: shanzhilin
- * @LastEditTime: 2022-10-20 23:22:49
+ * @LastEditTime: 2022-10-21 22:57:23
  */
 import create from 'zustand';
 
-import { userLoginApi } from '@/api';
-import {
-  getStorageUser,
-  removeStorageUser,
-  setStorageUser,
-  storage,
-} from '@/utils';
+import { getStorageUser, removeStorageUser, setStorageUser} from '@/utils';
 
 export interface UserInfo {
   token?: string;
@@ -27,7 +21,7 @@ export interface UserInfo {
 
 interface LoginState {
   isAdmin: boolean;
-  isLogin:boolean;
+  isLogin: boolean;
   login: (value: any) => Promise<void>;
   logout: () => Promise<void>;
 }
@@ -38,12 +32,11 @@ export const useLogin = create<LoginState>(set => ({
   isAdmin: !!user?.isAdmin,
   isLogin: !!user?.isAdmin,
   login: async value => {
-    const userInfo = await userLoginApi(value);
-    setStorageUser(userInfo?.data);
-    set(() => ({ isLogin: true }));
+    setStorageUser(value);
+    set(() => ({ isLogin: true, isAdmin: value?.isAdmin }));
   },
   logout: async () => {
-    set(() => ({ isLogin: false }));
+    set(() => ({ isLogin: false, isAdmin: false }));
     removeStorageUser();
   },
 }));
