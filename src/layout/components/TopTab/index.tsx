@@ -2,7 +2,7 @@
  * @Author: shanzhilin
  * @Date: 2022-10-15 17:24:14
  * @LastEditors: shanzhilin
- * @LastEditTime: 2022-10-21 22:49:26
+ * @LastEditTime: 2022-10-25 23:20:17
  */
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -43,6 +43,8 @@ const TopTab: React.FC = () => {
         label: '管理后台',
         key: '/back',
       });
+      setTabs(_tabs);
+    } else {
       setTabs(_tabs);
     }
   }, [isLogin]);

@@ -2,7 +2,7 @@
  * @Author: shanzhilin
  * @Date: 2022-10-15 17:23:10
  * @LastEditors: shanzhilin
- * @LastEditTime: 2022-10-24 22:57:53
+ * @LastEditTime: 2022-10-25 23:25:11
  */
 import React, { useState } from 'react';
 import { Button, Input, message, Modal, Radio } from 'antd';
@@ -24,7 +24,7 @@ const LoginModal: React.FC<LoginProps> = ({ visible, close }) => {
 
   // 登录
   const loginSubmit = async () => {
-    if (!username || !phone) return message.error('请输入用户名或手机号')
+    if (!username || !phone) return message.error('请输入用户名或手机号');
     const userInfo = await userLoginApi({
       phone,
       username,
@@ -39,12 +39,20 @@ const LoginModal: React.FC<LoginProps> = ({ visible, close }) => {
     }
   };
 
+  // 关闭弹窗
+  const onClose = () => {
+    setUserName('');
+    setPhone('');
+    setUserType(0);
+    close();
+  };
+
   return (
     <Modal
       className="login"
       width={460}
       open={visible}
-      onCancel={close}
+      onCancel={onClose}
       onOk={loginSubmit}
       footer={null}>
       <p className="mt-16 text-center text-20 font-bold">登录</p>
@@ -52,13 +60,15 @@ const LoginModal: React.FC<LoginProps> = ({ visible, close }) => {
         className="my-16 rounded-8"
         size="large"
         placeholder="请输入用户名"
-        onBlur={e => setUserName(e.target.value)}
+        value={username}
+        onChange={e => setUserName(e.target.value)}
       />
       <Input
         className="rounded-8"
         placeholder="请输入手机号"
         size="large"
-        onBlur={e => setPhone(e.target.value)}
+        value={phone}
+        onChange={e => setPhone(e.target.value)}
       />
       <Radio.Group
         className="mt-16"
