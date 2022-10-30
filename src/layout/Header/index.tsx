@@ -2,7 +2,7 @@
  * @Author: shanzhilin
  * @Date: 2022-10-06 18:12:26
  * @LastEditors: shanzhilin
- * @LastEditTime: 2022-10-25 23:26:57
+ * @LastEditTime: 2022-10-30 21:14:58
  */
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -51,7 +51,11 @@ const Header: React.FC = () => {
 
           <div className="flex flex-1 items-center justify-between pl-[40px]">
             <TopTab />
-            {!isLogin && <div className='p-8' onClick={() => setLoginModal(true)}>登录</div>}
+            {!isLogin && (
+              <div className="p-8" onClick={() => setLoginModal(true)}>
+                登录
+              </div>
+            )}
             {isLogin && (
               <Popover placement="bottom" content={loginContent()}>
                 <span className="mr-8">{userInfo?.nickname}</span>

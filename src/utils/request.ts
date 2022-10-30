@@ -8,7 +8,7 @@ import axios from 'axios';
 
 const HOST_URL = location.protocol + '//' + location.host + '/api';
 
-interface responseProps {
+export interface responseProps {
   success?: boolean;
   code?: number;
   msg?: string;

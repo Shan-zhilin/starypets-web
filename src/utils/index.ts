@@ -8,4 +8,5 @@ export * from './type';
 export * from './request';
 
 export * from './storage'
+export * from './format'
 export { default as storage } from './storage/storage';
