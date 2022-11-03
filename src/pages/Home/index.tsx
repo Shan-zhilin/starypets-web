@@ -2,11 +2,11 @@
  * @Author: shanzhilin
  * @Date: 2022-10-03 20:35:41
  * @LastEditors: shanzhilin
- * @LastEditTime: 2022-10-27 22:38:11
+ * @LastEditTime: 2022-11-03 22:25:21
  */
-import React, { useEffect, useState } from 'react';
+import React, { MouseEvent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Empty, message } from 'antd';
+import { Empty } from 'antd';
 
 import { getPetsListApi } from '@/api';
 import LoginModal from '@/layout/components/LoginModal';
@@ -21,7 +21,8 @@ const Home: React.FC = () => {
   const [petsList, setPetsList] = useState([]);
   const navigate = useNavigate();
 
-  const handelEnterDetail = ({id}:{id:number}) => {
+  // 进入详情
+  const handelEnterDetail = ({ id }: { id: number }) => {
     if (!isLogin) {
       setLoginVisible(true);
       return;
@@ -29,6 +30,7 @@ const Home: React.FC = () => {
     navigate(`/about/${id}`);
   };
 
+  // 数据获取
   const getPetsList = async () => {
     const { data } = await getPetsListApi();
     const _list = data?.map((item: any) => {
@@ -39,6 +41,11 @@ const Home: React.FC = () => {
       };
     });
     setPetsList(_list);
+  };
+
+  // 领养
+  const handelAdopt = (e: MouseEvent) => {
+    e.stopPropagation();
   };
 
   useEffect(() => {
@@ -60,7 +67,22 @@ const Home: React.FC = () => {
                 alt=""
                 className="h-[228px] w-[228px] rounded-t-8 object-cover"
               />
-              <div className="h-[160px] w-[160px]"></div>
+              <div className="h-[180px] p-12">
+                <div className="mb-10 text-13 text-gray">
+                  品种：{item.variety}
+                </div>
+                <div className="mb-10 text-13 font-medium text-primary">
+                  地址：
+                  {`${item.province}省/${item.city}市/${item.county}区/县`}
+                </div>
+                <div className="mb-10 text-12">发现时间：{item.createtime}</div>
+                <div className="mb-10 text-13">关注度：{item.attention}</div>
+                <div
+                  className="cursor-pointer rounded-8 bg-gradient-primary px-12 py-10 text-center text-16 font-medium text-white"
+                  onClick={handelAdopt}>
+                  我想领养
+                </div>
+              </div>
             </div>
           );
         })}
