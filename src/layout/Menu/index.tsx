@@ -5,7 +5,7 @@ import { Menu } from 'antd';
 const items = [
   {
     label: '管理员列表',
-    key: '/back/stage',
+    key: '/back/admin',
   },
   {
     label: '宠物管理',
@@ -15,6 +15,10 @@ const items = [
     label: '用户管理',
     key: '/back/pets',
   },
+  {
+    label: '招领申请',
+    key: '/back/adopt'
+  }
 ];
 
 const MenuLayout: React.FC = () => {

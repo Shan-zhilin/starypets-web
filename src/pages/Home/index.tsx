@@ -2,7 +2,7 @@
  * @Author: shanzhilin
  * @Date: 2022-10-03 20:35:41
  * @LastEditors: shanzhilin
- * @LastEditTime: 2022-11-06 21:02:04
+ * @LastEditTime: 2022-11-07 22:30:46
  */
 import React, { MouseEvent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -45,6 +45,10 @@ const Home: React.FC = () => {
 
   // 领养
   const handelAdopt = (e: MouseEvent) => {
+    if (!isLogin) {
+      setLoginVisible(true);
+      return;
+    }
     e.stopPropagation();
   };
 

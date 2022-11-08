@@ -2,7 +2,7 @@
  * @Author: shanzhilin
  * @Date: 2022-10-03 20:35:03
  * @LastEditors: shanzhilin
- * @LastEditTime: 2022-11-07 19:40:43
+ * @LastEditTime: 2022-11-07 22:35:43
  */
 
 import React, { MouseEvent, useEffect, useState } from 'react';
@@ -63,7 +63,7 @@ const About: React.FC = () => {
             </div>
           </div>
           <div
-            className="mt-30 cursor-pointer rounded-8 bg-gradient-primary px-12 py-10 text-center text-16 font-medium text-white"
+            className="w-[200px] mt-30 cursor-pointer rounded-8 bg-gradient-primary px-12 py-10 text-center text-16 font-medium text-white"
             onClick={handelAdopt}>
             我想领养
           </div>
