@@ -2,7 +2,7 @@
  * @Author: shanzhilin
  * @Date: 2022-10-15 17:23:10
  * @LastEditors: shanzhilin
- * @LastEditTime: 2022-10-25 23:25:11
+ * @LastEditTime: 2022-11-08 22:54:41
  */
 import React, { useState } from 'react';
 import { Button, Input, message, Modal, Radio } from 'antd';
@@ -20,7 +20,6 @@ interface LoginProps {
 
 const LoginModal: React.FC<LoginProps> = ({ visible, close }) => {
   const [username, setUserName] = useState('');
-  const [loginVisible,setLoginVisible] = useState(false)
   const [registerVisible, setRegVisible] = useState(false);
   const [phone, setPhone] = useState('');
   const [login] = useLogin(state => [state.login]);
@@ -48,7 +47,6 @@ const LoginModal: React.FC<LoginProps> = ({ visible, close }) => {
     setUserName('');
     setPhone('');
     setUserType(0);
-    setLoginVisible(false)
     close();
   };
 
@@ -75,14 +73,18 @@ const LoginModal: React.FC<LoginProps> = ({ visible, close }) => {
         value={phone}
         onChange={e => setPhone(e.target.value)}
       />
-      <div className='flex justify-between items-center mt-16'>
-      <Radio.Group
-        onChange={e => setUserType(e.target.value)}
-        value={userType}>
-        <Radio value={0}>管理员</Radio>
-        <Radio value={1}>普通用户</Radio>
-      </Radio.Group>
-      <span className='cursor-pointer text-primary' onClick={() => setRegVisible(true)}>立即注册</span>
+      <div className="mt-16 flex items-center justify-between">
+        <Radio.Group
+          onChange={e => setUserType(e.target.value)}
+          value={userType}>
+          <Radio value={0}>管理员</Radio>
+          <Radio value={1}>普通用户</Radio>
+        </Radio.Group>
+        <span
+          className="cursor-pointer text-primary"
+          onClick={() => setRegVisible(true)}>
+          立即注册
+        </span>
       </div>
       <Button
         className="my-16 w-full rounded-8"
@@ -91,7 +93,10 @@ const LoginModal: React.FC<LoginProps> = ({ visible, close }) => {
         onClick={loginSubmit}>
         登录
       </Button>
-      <RegisterModal visible={registerVisible} onClose={() => setRegVisible(false)}/>
+      <RegisterModal
+        visible={registerVisible}
+        onClose={() => setRegVisible(false)}
+      />
     </Modal>
   );
 };

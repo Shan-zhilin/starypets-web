@@ -2,13 +2,14 @@
  * @Author: shanzhilin
  * @Date: 2022-10-03 20:35:41
  * @LastEditors: shanzhilin
- * @LastEditTime: 2022-11-07 22:30:46
+ * @LastEditTime: 2022-11-08 23:07:39
  */
 import React, { MouseEvent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Empty } from 'antd';
 
 import { getPetsListApi } from '@/api';
+import AdoptModal from '@/components/AdoptPet';
 import LoginModal from '@/layout/components/LoginModal';
 import { useLogin } from '@/store/login';
 import { formatImgList } from '@/utils';
@@ -17,6 +18,7 @@ import './index.scss';
 
 const Home: React.FC = () => {
   const [loginVisible, setLoginVisible] = useState(false);
+  const [adoptVisible, setAdoptVisible] = useState(false);
   const [isLogin] = useLogin(state => [state.isLogin]);
   const [petsList, setPetsList] = useState([]);
   const navigate = useNavigate();
@@ -49,6 +51,7 @@ const Home: React.FC = () => {
       setLoginVisible(true);
       return;
     }
+    setAdoptVisible(true);
     e.stopPropagation();
   };
 
@@ -93,6 +96,7 @@ const Home: React.FC = () => {
       </div>
       {!petsList.length && <Empty description="暂无数据" />}
       <LoginModal visible={loginVisible} close={() => setLoginVisible(false)} />
+      <AdoptModal visible={adoptVisible} close={() => setAdoptVisible(false)} />
     </div>
   );
 };

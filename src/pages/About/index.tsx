@@ -2,17 +2,19 @@
  * @Author: shanzhilin
  * @Date: 2022-10-03 20:35:03
  * @LastEditors: shanzhilin
- * @LastEditTime: 2022-11-07 22:35:43
+ * @LastEditTime: 2022-11-08 23:57:14
  */
 
 import React, { MouseEvent, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { getPetsListApi } from '@/api';
+import AdoptModal from '@/components/AdoptPet';
 import { formatImgList } from '@/utils';
 
 const About: React.FC = () => {
   const params = useParams();
+  const [adoptVisible, setAdoptVisible] = useState(false);
   const [detail, setDetail] = useState<any>();
 
   // 数据获取
@@ -24,11 +26,6 @@ const About: React.FC = () => {
       headpics: formatImgList(data?.headpics),
     };
     setDetail(_detail);
-  };
-
-  // 领养
-  const handelAdopt = (e: MouseEvent) => {
-    e.stopPropagation();
   };
 
   useEffect(() => {
@@ -63,8 +60,8 @@ const About: React.FC = () => {
             </div>
           </div>
           <div
-            className="w-[200px] mt-30 cursor-pointer rounded-8 bg-gradient-primary px-12 py-10 text-center text-16 font-medium text-white"
-            onClick={handelAdopt}>
+            className="mt-30 w-[200px] cursor-pointer rounded-8 bg-gradient-primary px-12 py-10 text-center text-16 font-medium text-white"
+            onClick={() => setAdoptVisible(true)}>
             我想领养
           </div>
         </div>
@@ -75,16 +72,12 @@ const About: React.FC = () => {
         <div className="h-[826px] w-[826px]">
           {detail?.petpics.map((item: string) => {
             return (
-              <img
-                className="w-full h-full"
-                src={item}
-                key={item}
-                alt=""
-              />
+              <img className="h-full w-full" src={item} key={item} alt="" />
             );
           })}
         </div>
       </div>
+      <AdoptModal visible={adoptVisible} close={() => setAdoptVisible(false)} />
     </div>
   );
 };

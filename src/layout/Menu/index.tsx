@@ -1,3 +1,9 @@
+/*
+ * @Author: shanzhilin
+ * @Date: 2022-11-08 22:01:38
+ * @LastEditors: shanzhilin
+ * @LastEditTime: 2022-11-08 22:26:20
+ */
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Menu } from 'antd';
@@ -8,11 +14,11 @@ const items = [
     key: '/back/admin',
   },
   {
-    label: '宠物管理',
+    label: '用户管理',
     key: '/back/user',
   },
   {
-    label: '用户管理',
+    label: '宠物管理',
     key: '/back/pets',
   },
   {
