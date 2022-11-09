@@ -2,9 +2,9 @@
  * @Author: shanzhilin
  * @Date: 2022-10-03 20:35:41
  * @LastEditors: shanzhilin
- * @LastEditTime: 2022-11-08 23:07:39
+ * @LastEditTime: 2022-11-09 22:50:13
  */
-import React, { MouseEvent, useEffect, useState } from 'react';
+import React, { MouseEvent, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Empty } from 'antd';
 
@@ -22,6 +22,7 @@ const Home: React.FC = () => {
   const [isLogin] = useLogin(state => [state.isLogin]);
   const [petsList, setPetsList] = useState([]);
   const navigate = useNavigate();
+  const adoptRef = useRef({});
 
   // 进入详情
   const handelEnterDetail = ({ id }: { id: number }) => {
@@ -46,11 +47,15 @@ const Home: React.FC = () => {
   };
 
   // 领养
-  const handelAdopt = (e: MouseEvent) => {
+  const handelAdopt = (
+    e: MouseEvent,
+    item: { id: number; [key: string]: any }
+  ) => {
     if (!isLogin) {
       setLoginVisible(true);
       return;
     }
+    adoptRef.current = item;
     setAdoptVisible(true);
     e.stopPropagation();
   };
@@ -86,7 +91,7 @@ const Home: React.FC = () => {
                 <div className="mb-10 text-13">关注度：{item.attention}</div>
                 <div
                   className="cursor-pointer rounded-8 bg-gradient-primary px-12 py-10 text-center text-16 font-medium text-white"
-                  onClick={handelAdopt}>
+                  onClick={e => handelAdopt(e, item)}>
                   我想领养
                 </div>
               </div>
@@ -96,7 +101,11 @@ const Home: React.FC = () => {
       </div>
       {!petsList.length && <Empty description="暂无数据" />}
       <LoginModal visible={loginVisible} close={() => setLoginVisible(false)} />
-      <AdoptModal visible={adoptVisible} close={() => setAdoptVisible(false)} />
+      <AdoptModal
+        visible={adoptVisible}
+        close={() => setAdoptVisible(false)}
+        item={adoptRef.current}
+      />
     </div>
   );
 };

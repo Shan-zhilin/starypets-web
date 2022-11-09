@@ -2,19 +2,34 @@
  * @Author: shanzhilin
  * @Date: 2022-11-08 22:40:44
  * @LastEditors: shanzhilin
- * @LastEditTime: 2022-11-08 23:54:57
+ * @LastEditTime: 2022-11-09 23:19:00
  */
 import React, { FC } from 'react';
 import CityOptions, { DivisionUtil } from '@pansy/china-division';
-import { Button, Cascader, DatePicker, Form, Input, Modal, Radio } from 'antd';
+import {
+  Button,
+  Cascader,
+  DatePicker,
+  Form,
+  Input,
+  message,
+  Modal,
+  Radio,
+} from 'antd';
 import { useForm } from 'antd/es/form/Form';
+import dayjs from 'dayjs';
 const { Item } = Form;
+import { createAdoptApi } from '@/api';
 const cityFormate = new DivisionUtil(CityOptions);
 
 import './index.scss';
 interface AdoptPetProps {
   visible: boolean;
-  close?: () => void;
+  close: () => void;
+  item: {
+    id?: number;
+    [key: string]: any;
+  };
 }
 
 const layout = {
@@ -24,19 +39,40 @@ const layout = {
 const tailLayout = {
   wrapperCol: { offset: 5 },
 };
-const AdoptPet: FC<AdoptPetProps> = ({ visible, close }) => {
+const AdoptPet: FC<AdoptPetProps> = ({ visible, close, item }) => {
   const [form] = useForm();
-
-  // 提交
-  const onFinish = () => {};
 
   // 重置
   const onReset = () => {
     form.resetFields();
   };
 
+  // 提交
+  const onFinish = async (values: any) => {
+    const [province, city, county] = values.cities.map((item: string) =>
+      cityFormate.getNameByCode(item)
+    );
+    values.appointtime = dayjs(values.appointtime).format(
+      'YYYY-MM-DD HH:mm:ss'
+    );
+    const params = { ...values, province, city, county, adoptid: item.id };
+    delete params.cities;
+    const res = await createAdoptApi(params);
+    if (res.success) {
+      message.success('申请成功,我们会尽快联系您确认领养流程哦~');
+      close();
+    } else {
+      message.error(res.msg);
+    }
+  };
+
   return (
-    <Modal className="adopt" open={visible} onCancel={close} footer={null}>
+    <Modal
+      className="adopt"
+      open={visible}
+      destroyOnClose
+      onCancel={close}
+      footer={null}>
       <p className="mt-16 mb-8 text-center text-20 font-bold">领养信息 </p>
       <Form
         {...layout}
@@ -50,10 +86,7 @@ const AdoptPet: FC<AdoptPetProps> = ({ visible, close }) => {
         <Item name="phone" label="手机号" rules={[{ required: true }]}>
           <Input placeholder="请输入手机号" />
         </Item>
-        <Item
-          name="hasexperience"
-          label="有无领养经验"
-          rules={[{ required: true }]}>
+        <Item name="hasexperience" label="有无领养经验" initialValue={0}>
           <Radio.Group defaultValue={0}>
             <Radio value={0}>无</Radio>
             <Radio value={1}>有</Radio>
@@ -69,14 +102,14 @@ const AdoptPet: FC<AdoptPetProps> = ({ visible, close }) => {
         <Item name="address" label="详细地址" rules={[{ required: true }]}>
           <Input placeholder="请输入详细地址" />
         </Item>
-        <Item name="adoptway" label="领养方式" rules={[{ required: true }]}>
+        <Item name="adoptway" label="领养方式" initialValue={0}>
           <Radio.Group defaultValue={0}>
             <Radio value={0}>本地自取</Radio>
             <Radio value={1}>远程运输</Radio>
           </Radio.Group>
         </Item>
         <Item name="appointtime" label="预约时间" rules={[{ required: true }]}>
-          <DatePicker showTime format="YYYY-MM-DD HH:mm:ss" />
+          <DatePicker showTime />
         </Item>
 
         <Item {...tailLayout}>

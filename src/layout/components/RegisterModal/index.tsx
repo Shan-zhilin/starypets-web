@@ -2,7 +2,7 @@
  * @Author: shanzhilin
  * @Date: 2022-10-30 20:50:40
  * @LastEditors: shanzhilin
- * @LastEditTime: 2022-10-30 22:15:32
+ * @LastEditTime: 2022-11-09 22:29:41
  */
 import React from 'react';
 import CityOptions, { DivisionUtil } from '@pansy/china-division';
@@ -38,7 +38,7 @@ const RegisterModal = ({
     );
     const params = {...values, province, city, county}
     delete params.address
-    createUserApi({...params}).then(res => {
+    createUserApi(params).then(res => {
       if (!res.success) return message.error(res.msg)
       message.success('注册成功快去登录吧!')
       onClose()
