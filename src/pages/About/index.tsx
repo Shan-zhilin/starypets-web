@@ -2,10 +2,10 @@
  * @Author: shanzhilin
  * @Date: 2022-10-03 20:35:03
  * @LastEditors: shanzhilin
- * @LastEditTime: 2022-11-08 23:57:14
+ * @LastEditTime: 2022-11-13 21:03:06
  */
 
-import React, { MouseEvent, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { getPetsListApi } from '@/api';
@@ -77,7 +77,11 @@ const About: React.FC = () => {
           })}
         </div>
       </div>
-      <AdoptModal visible={adoptVisible} close={() => setAdoptVisible(false)} />
+      <AdoptModal
+        visible={adoptVisible}
+        close={() => setAdoptVisible(false)}
+        item={detail}
+      />
     </div>
   );
 };

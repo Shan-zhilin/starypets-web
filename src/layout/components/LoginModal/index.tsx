@@ -2,7 +2,7 @@
  * @Author: shanzhilin
  * @Date: 2022-10-15 17:23:10
  * @LastEditors: shanzhilin
- * @LastEditTime: 2022-11-08 22:54:41
+ * @LastEditTime: 2022-11-13 21:25:11
  */
 import React, { useState } from 'react';
 import { Button, Input, message, Modal, Radio } from 'antd';
@@ -25,6 +25,14 @@ const LoginModal: React.FC<LoginProps> = ({ visible, close }) => {
   const [login] = useLogin(state => [state.login]);
   const [userType, setUserType] = useState(0);
 
+  // 关闭弹窗
+  const onClose = () => {
+    setUserName('');
+    setPhone('');
+    setUserType(0);
+    close();
+  };
+
   // 登录
   const loginSubmit = async () => {
     if (!username || !phone) return message.error('请输入用户名或手机号');
@@ -36,18 +44,10 @@ const LoginModal: React.FC<LoginProps> = ({ visible, close }) => {
     const { data, success, msg } = userInfo;
     if (success) {
       login(data);
-      close();
+      onClose();
     } else {
       message.error(msg);
     }
-  };
-
-  // 关闭弹窗
-  const onClose = () => {
-    setUserName('');
-    setPhone('');
-    setUserType(0);
-    close();
   };
 
   return (
