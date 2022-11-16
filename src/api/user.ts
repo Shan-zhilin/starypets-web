@@ -2,7 +2,7 @@
  * @Author: shanzhilin
  * @Date: 2022-10-30 22:39:30
  * @LastEditors: shanzhilin
- * @LastEditTime: 2022-11-13 21:38:42
+ * @LastEditTime: 2022-11-16 21:59:10
  */
 import request from '@/utils/request';
 
@@ -13,6 +13,8 @@ export interface CreateUserProps {
   province?: string;
   city?: string;
   county?: string;
+  page?: number;
+  size?: number;
   [key: string]: any;
 }
 
@@ -24,6 +26,12 @@ export const createUserApi = (data?: CreateUserProps) =>
 
 export const createAdminApi = (data?: CreateUserProps) =>
   request('/admin/createadmin', {
+    method: 'post',
+    data,
+  });
+
+export const getAdminListApi = (data?: CreateUserProps) =>
+  request('/admin/list', {
     method: 'post',
     data,
   });
