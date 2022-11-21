@@ -10,7 +10,7 @@ import { Button, Input, message, Modal, Radio } from 'antd';
 import { userLoginApi } from '@/api';
 import { useLogin } from '@/store/login';
 
-import RegisterModal from '../RegisterModal';
+import RegisterModal from '../../../components/RegisterModal';
 
 import './index.scss';
 interface LoginProps {

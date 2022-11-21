@@ -2,7 +2,7 @@
  * @Author: shanzhilin
  * @Date: 2022-10-30 22:39:30
  * @LastEditors: shanzhilin
- * @LastEditTime: 2022-11-19 19:40:03
+ * @LastEditTime: 2022-11-20 17:36:32
  */
 import request from '@/utils/request';
 
@@ -44,6 +44,24 @@ export const delAdminApi = (data?: UserProps) =>
 
 export const updateAdminApi = (data?: UserProps) =>
   request('/admin/update/info', {
+    method: 'post',
+    data,
+  });
+
+export const getUserListApi = (data?: UserProps) =>
+  request('/user/list', {
+    method: 'post',
+    data,
+  });
+
+export const delUserApi = (data: { id?: number }) =>
+  request('/user/delete', {
+    method: 'post',
+    data,
+  });
+
+export const updateUserApi = (data?: UserProps) =>
+  request('/user/update/info', {
     method: 'post',
     data,
   });
