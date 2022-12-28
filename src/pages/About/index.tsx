@@ -2,7 +2,7 @@
  * @Author: shanzhilin
  * @Date: 2022-10-03 20:35:03
  * @LastEditors: shanzhilin
- * @LastEditTime: 2022-11-13 21:03:06
+ * @LastEditTime: 2022-12-28 22:42:00
  */
 
 import React, { useEffect, useState } from 'react';
@@ -44,7 +44,7 @@ const About: React.FC = () => {
           </p>
           <p className="my-20 font-medium text-primary">
             地址：
-            {`${detail?.province}省/${detail?.city}市/${detail?.county}区/县`}
+            {`${detail?.province}/${detail?.city}/${detail?.county}`}
           </p>
           <p className="mb-30">发现时间：{detail?.createtime}</p>
           <div className="flex flex-1 items-center justify-between border-b border-dashed border-[#DDDFE6] pb-16">
@@ -69,13 +69,14 @@ const About: React.FC = () => {
       <div className="pb-0 mb-15 rounded-8 bg-white p-24">
         <p className="text-18 font-medium text-gray-dark">宠物情况</p>
         <p className="my-20 text-14 text-gray-dark">{detail?.description}</p>
-        <div className="h-[826px] w-[826px]">
-          {detail?.petpics.map((item: string) => {
-            return (
+
+        {detail?.petpics.map((item: string) => {
+          return (
+            <div className="h-[826px] w-[826px] mb-10">
               <img className="h-full w-full" src={item} key={item} alt="" />
-            );
-          })}
-        </div>
+            </div>
+          );
+        })}
       </div>
       <AdoptModal
         visible={adoptVisible}
