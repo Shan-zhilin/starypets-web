@@ -2,14 +2,14 @@
  * @Author: shanzhilin
  * @Date: 2022-11-06 14:44:26
  * @LastEditors: shanzhilin
- * @LastEditTime: 2022-12-27 22:04:08
+ * @LastEditTime: 2022-12-28 22:09:00
  */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { Button, Form, Input, message, Modal, Table } from 'antd';
 
 import { delPetsApi, getPetsManageListApi } from '@/api';
-import CreatePetModal from '@/components/CreatePetModal';
+import CreatePetModal, { PetItemProps } from '@/components/CreatePetModal';
 import { filterObject } from '@/utils/filter';
 const { Item } = Form;
 
@@ -35,6 +35,7 @@ const PetList: React.FC = () => {
     totalCount: 0,
   });
   const [visible, setVisible] = useState(false);
+  const petItem = useRef<Partial<PetItemProps>>({});
 
   // 修改分页
   const handlePageChange = (page: number, size: number) => {
@@ -48,6 +49,9 @@ const PetList: React.FC = () => {
   // 获取列表数据
   const getData = async () => {
     const { data } = await getPetsManageListApi(query);
+    data?.list.map((item: PetItemProps) => {
+      item.petpics = (item?.petpics as string).split(';');
+    });
     setTableData(data as TableProps);
   };
 
@@ -78,6 +82,12 @@ const PetList: React.FC = () => {
     });
   };
 
+  // 修改
+  const handleUpdatePet = (v: any) => {
+    petItem.current = v;
+    setVisible(true);
+  };
+
   const columns = [
     { title: '品种', dataIndex: 'variety', width: 100 },
     {
@@ -86,7 +96,7 @@ const PetList: React.FC = () => {
       render: (v: any) => {
         return (
           <img
-            src={v?.petpics}
+            src={v?.petpics.length > 1 ? v?.petpics[0] : v?.petpics}
             style={{ width: '100px', height: '100px', objectFit: 'contain' }}
           />
         );
@@ -106,7 +116,10 @@ const PetList: React.FC = () => {
       render: (v: any) => {
         return (
           <div className="flex">
-            <Button size="middle" className="mr-8 rounded-4" onClick={() => {}}>
+            <Button
+              size="middle"
+              className="mr-8 rounded-4"
+              onClick={() => handleUpdatePet(v)}>
               修改
             </Button>
             <Button
@@ -207,7 +220,10 @@ const PetList: React.FC = () => {
       </div>
       <CreatePetModal
         visible={visible}
+        item={petItem.current}
+        upData={() => getData()}
         close={() => {
+          petItem.current = {};
           setVisible(false);
         }}
       />

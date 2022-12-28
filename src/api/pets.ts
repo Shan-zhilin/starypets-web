@@ -2,7 +2,7 @@
  * @Author: shanzhilin
  * @Date: 2022-10-27 22:42:20
  * @LastEditors: shanzhilin
- * @LastEditTime: 2022-12-27 22:28:57
+ * @LastEditTime: 2022-12-28 21:57:04
  */
 import request from '@/utils/request';
 
@@ -37,6 +37,13 @@ export const delPetsApi = (data?: GetPetsProps) =>
 // 添加一条宠物
 export const addPetApi = (data?: GetPetsProps) =>
   request('/pets/createpet', {
+    method: 'post',
+    data,
+  });
+
+// 更新宠物信息
+export const updatePetInfoApi = (data?: GetPetsProps) =>
+  request('/pets/update/info', {
     method: 'post',
     data,
   });

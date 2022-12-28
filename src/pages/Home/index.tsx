@@ -2,7 +2,7 @@
  * @Author: shanzhilin
  * @Date: 2022-10-03 20:35:41
  * @LastEditors: shanzhilin
- * @LastEditTime: 2022-11-09 22:50:13
+ * @LastEditTime: 2022-12-28 22:24:11
  */
 import React, { MouseEvent, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -85,7 +85,7 @@ const Home: React.FC = () => {
                 </div>
                 <div className="mb-10 text-13 font-medium text-primary">
                   地址：
-                  {`${item.province}省/${item.city}市/${item.county}区/县`}
+                  {`${item.province}/${item.city}/${item.county}`}
                 </div>
                 <div className="mb-10 text-12">发现时间：{item.createtime}</div>
                 <div className="mb-10 text-13">关注度：{item.attention}</div>
