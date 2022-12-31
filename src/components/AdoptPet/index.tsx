@@ -2,7 +2,7 @@
  * @Author: shanzhilin
  * @Date: 2022-11-08 22:40:44
  * @LastEditors: shanzhilin
- * @LastEditTime: 2022-11-09 23:19:00
+ * @LastEditTime: 2022-12-31 22:17:23
  */
 import React, { FC } from 'react';
 import CityOptions, { DivisionUtil } from '@pansy/china-division';
@@ -110,6 +110,9 @@ const AdoptPet: FC<AdoptPetProps> = ({ visible, close, item }) => {
         </Item>
         <Item name="appointtime" label="预约时间" rules={[{ required: true }]}>
           <DatePicker showTime />
+        </Item>
+        <Item name="remark" label="备注">
+          <Input placeholder="请输入备注" />
         </Item>
 
         <Item {...tailLayout}>

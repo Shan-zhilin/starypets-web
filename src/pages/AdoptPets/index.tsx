@@ -2,13 +2,13 @@
  * @Author: shanzhilin
  * @Date: 2022-11-06 14:44:26
  * @LastEditors: shanzhilin
- * @LastEditTime: 2022-12-29 22:38:07
+ * @LastEditTime: 2022-12-31 22:57:31
  */
 import React, { useEffect, useState } from 'react';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { Button, Form, Input, message, Modal, Table, Tag } from 'antd';
 
-import { delAdoptApi, queryAdoptListApi } from '@/api';
+import { delAdoptApi, queryAdoptListApi,updatePetInfo } from '@/api';
 import { filterObject } from '@/utils/filter';
 const { Item } = Form;
 
@@ -94,6 +94,30 @@ const AdoptPets: React.FC = () => {
     });
   };
 
+  // 更新信息
+  const handleUpdateInfo = (id:number) => {
+    Modal.success({
+      title: '确定完成配送嘛？',
+      icon: <ExclamationCircleOutlined />,
+      okText: '确认',
+      closable: true,
+      onOk: () => {
+        updatePetInfo({
+          id,
+          isfinish: 1
+        }).then(res => {
+          if(res.success) {
+            message.success(res.msg)
+            getData()
+          }else {
+            message.error(res.msg)
+          }
+        })
+      },
+    });
+   
+  }
+
   const columns = [
     { title: '姓名', dataIndex: 'name', width: 100 },
     {
@@ -146,15 +170,18 @@ const AdoptPets: React.FC = () => {
     },
     {
       title: '操作',
-      width: 150,
+      width: 200,
       render: (v: PetProps) => {
         return (
           <div className="flex">
-            <Button size="middle" className="mr-8 rounded-4">
-              修改
-            </Button>
+            {v?.isfinish === 0 && (
+              <Button size="small" type="primary" className="mr-8 rounded-4" onClick={() => handleUpdateInfo(v?.id)}>
+                完成领养
+              </Button>
+            )}
+
             <Button
-              size="middle"
+              size="small"
               className="mr-8 rounded-4"
               onClick={() => handleDelPets(v?.id)}>
               删除
